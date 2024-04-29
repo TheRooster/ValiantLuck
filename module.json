@@ -5,7 +5,7 @@
     "authors":[
         {"name":"The_Rooster"}
     ],
-    "version":"0.0.3",
+    "version":"0.0.4",
     "compatibility": {
         "minimum":"11",
         "verified":"11"
@@ -38,7 +38,7 @@
         "type":"Item"
     }],
     "manifest":"https://raw.githubusercontent.com/TheRooster/ValiantLuck/main/module.json",
-    "download":"https://github.com/TheRooster/ValiantLuck/releases/download/rel-0.0.3/ValiantLuck-0.0.3.zip"
+    "download":"https://github.com/TheRooster/ValiantLuck/releases/download/rel-0.0.4/ValiantLuck-0.0.4.zip"
 
 }
 

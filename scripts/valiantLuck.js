@@ -66,7 +66,7 @@ async function addLuck(actor, luckTotal){
         return;
     }
     //check if the actor has already recieved luck this turn
-    let effect = actor.effects.find(effect =>  effect.label === "AlreadyLucky");
+    let effect = actor.effects.find(effect =>  effect.name === "AlreadyLucky");
     if ( !(effect === undefined)){
         return;
     }
@@ -85,7 +85,7 @@ async function addLuck(actor, luckTotal){
 }
 
 async function subtractLuck(actor, luckCount){
-    let item = actor.items.find(item =>  item.label === "Luck");
+    let item = actor.items.find(item =>  item.name === "Luck");
     if ( item === undefined){
         return;
     }
@@ -97,7 +97,7 @@ async function subtractLuck(actor, luckCount){
 }
 
 function spendLuckVanilla(actor, rollConfig){
-    let item = actor.items.find(item =>  item.label === "Luck");
+    let item = actor.items.find(item =>  item.name === "Luck");
     if ( item === undefined){
         return;
     }
