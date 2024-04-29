@@ -1,0 +1,62 @@
+{
+  "name": "Luck",
+  "type": "feat",
+  "img": "icons/commodities/flowers/clover.webp",
+  "system": {
+    "description": {
+      "value": "<p><strong>Luck</strong><br />    Every PC has a special resource called Luck, which can be used to influence the result of any ability check, attack roll, or save you make.</p><hr /><p><strong>Spending Luck Points</strong></p><p>    A PC with Luck points can spend them as a 1-for-1 bonus to any d20 roll they make. For example, if you have 4 Luck points and roll a 13 on the die, you could choose to spend 2 Luck points (reducing your total Luck points to 2) and make your roll result a 15. You can choose to spend your Luck points in this way after you make a roll, but before the GM declares whether the roll succeeded or failed. Luck points can’t be spent in this way to offset the effects of rolling a natural 1 and they can’t be used to create the effects of a natural 20. Alternatively, immediately after you make an attack roll, ability check or save, you can spend 3 Luck points to reroll a d20 used for that roll. Again, you can choose to spend Luck points in this way after you make a roll, but before the GM declares whether the roll succeeded or failed.</p><hr /><p><strong>Gaining Luck Points</strong></p><p>    When you first create your character, you start with 0 Luck points. Over the course of your adventures, you gain Luck points in the following ways:</p><ul><li><p>Once per turn, when you fail an attack roll or save, you gain 1 Luck point. </p></li><li><p>The GM can choose to award 1 Luck point to a character, typically as a reward for coming up with a clever idea, demonstrating excellent roleplaying, or pursuing an interesting—rather than optimal—choice. </p></li><li><p>Luck points can be awarded to a party for surviving difficult encounters or achieving story goals set by the GM (in addition to XP).</p></li></ul>",
+      "chat": "<p><span style=\"font-family:Signika, sans-serif\"><strong style=\"box-sizing:border-box;user-select:text;scrollbar-color:initial;color:rgb(25, 24, 19);font-family:Signika, sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\">Luck</strong><br style=\"box-sizing:border-box;user-select:text;scrollbar-color:initial;color:rgb(25, 24, 19);font-family:Signika, sans-serif;font-size:13px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-indent:0px;text-transform:none;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;white-space:normal;text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial\" />Every PC has a special resource called Luck, which can be used to influence the result of any ability check, attack roll, or save you make.</span></p>"
+    },
+    "source": {
+      "custom": ""
+    },
+    "activation": {
+      "type": "special",
+      "cost": null,
+      "condition": ""
+    },
+    "uses": {
+      "value": 0,
+      "max": "5",
+      "per": "charges",
+      "recovery": "",
+      "prompt": false
+    },
+    "actionType": "util"
+  },
+  "effects": [
+    {
+      "icon": "icons/commodities/flowers/clover.webp",
+      "changes": [],
+      "transfer": true,
+      "name": "Luck"
+    }
+  ],
+  "flags": {
+    "itemacro": {
+      "macro": {
+        "name": "Luck",
+        "type": "script",
+        "scope": "global",
+        "command": "//check if the actor has already recieved luck this turn\nlet effect = actor.effects.find(i =>  i.name ===\"AlreadyLucky\");\nif ( !(effect === undefined)){\n    return;\n}\n// get the total of luck on this item\nlet luckTotal=item.system.uses.value\n// less than max luck, just add\nif(luckTotal < 5){\n    await item.update({'system.uses.value': luckTotal + 1});\n} else {\n    let newRoll = new Roll(\"1d4\");\n    await newRoll.evaluate();\n    newRoll.toMessage({\n        title:\"Luck Reset\", \n        flavor:`${actor.name} has too much Luck, Resetting`\n    });\n    await item.update({'system.uses.value': newRoll.result});\n}\n\n//only if we're in combat\nif(actor.inCombat){\n   //Add effect to prevent luck from happening again\n   let luckEffect = new ActiveEffect({\n         name:\"AlreadyLucky\",\n         icon:\"icons/commodities/flowers/clover.webp\",\n         duration:{turns:1}\n   })\n   await MidiQOL.socket().executeAsGM(\"createEffects\", {\n         actorUuid: actor.uuid, \n         effects: [luckEffect.toObject()]\n   })\n}",
+        "author": "3SwEE8d1GA1w4quO",
+        "img": "icons/svg/dice-target.svg"
+      }
+    },
+    "midi-qol": {
+      "effectActivation": false,
+      "onUseMacroName": "[postActiveEffects]ItemMacro"
+    },
+    "dae": {
+      "macro": {
+        "name": "Luck",
+        "type": "script",
+        "scope": "global",
+        "command": "//check if the actor has already recieved luck this turn\nlet effect = actor.effects.find(i =>  i.name ===\"AlreadyLucky\");\nif ( !(effect === undefined)){\n    return;\n}\n// get the total of luck on this item\nlet luckTotal=item.system.uses.value\n// less than max luck, just add\nif(luckTotal < 5){\n    await item.update({'system.uses.value': luckTotal + 1});\n} else {\n    let newRoll = new Roll(\"1d4\");\n    await newRoll.evaluate();\n    newRoll.toMessage({\n        title:\"Luck Reset\", \n        flavor:`${actor.name} has too much Luck, Resetting`\n    });\n    await item.update({'system.uses.value': newRoll.result});\n}\n\n//only if we're in combat\nif(actor.inCombat){\n   //Add effect to prevent luck from happening again\n   let luckEffect = new ActiveEffect({\n         name:\"AlreadyLucky\",\n         icon:\"icons/commodities/flowers/clover.webp\",\n         duration:{turns:1}\n   })\n   await MidiQOL.socket().executeAsGM(\"createEffects\", {\n         actorUuid: actor.uuid, \n         effects: [luckEffect.toObject()]\n   })\n}",
+        "author": "3SwEE8d1GA1w4quO",
+        "_id": null,
+        "img": "icons/svg/dice-target.svg"
+      }
+    }
+  }
+}

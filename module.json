@@ -1,0 +1,44 @@
+{
+    "id":"valiant-luck",
+    "title":"Valiant Luck - A luck mechanic for 5e",
+    "description": "An implementation of the Luck mechanic from Tales of the Valiant for 5e+MidiQOL",
+    "authors":[
+        {"name":"The_Rooster"}
+    ],
+    "version":"0.0.1",
+    "compatibility": {
+        "minimum":"11",
+        "verified":"11"
+    },
+    "relationships":{
+        "systems":[{
+            "id": "dnd5e",
+            "type": "system",
+            "compatibility": {
+                "minimum": "3.1",
+                "maximum": "3.3"
+            }
+        }],
+        "requires":[{
+            "id": "midi-qol",
+            "type":"module",
+            "compatibility":{
+                "minimum":"11.4.23"
+            }
+        }]
+    },
+    "esmodules": [
+        "scripts/valiantLuck.js"
+    ],
+    "packs":[{
+        "name":"valiant-luck-items",
+        "label":"Valiant Luck - Items",
+        "system":"dnd5e",
+        "path":"./packs/valiant-luck-items",
+        "type":"Item"
+    }],
+    "manifest":"",
+    "download":""   
+}
+
+
