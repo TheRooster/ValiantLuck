@@ -37,7 +37,7 @@
         "path":"./packs/valiant-luck-items",
         "type":"Item"
     }],
-    "manifest":"",
+    "manifest":"https://raw.githubusercontent.com/TheRooster/ValiantLuck/main/module.json",
     "download":""   
 }
 
