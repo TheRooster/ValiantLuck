@@ -62,7 +62,7 @@ async function addLuckMidi(workflow){
 
 async function addLuck(actor, luckTotal){
     let item = actor.items.find(item =>  item.name === "Luck");
-    if ( luckeffect === undefined){
+    if ( item === undefined){
         return;
     }
     //check if the actor has already recieved luck this turn
@@ -86,7 +86,7 @@ async function addLuck(actor, luckTotal){
 
 async function subtractLuck(actor, luckCount){
     let item = actor.items.find(item =>  item.label === "Luck");
-    if ( luckeffect === undefined){
+    if ( item === undefined){
         return;
     }
     let luckTotal=item.system.uses.value;
